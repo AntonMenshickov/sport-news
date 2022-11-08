@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_number/mobile_number.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sport_news/screens/message_screen.dart';
 import 'package:sport_news/screens/placeholder_screen.dart';
 import 'package:sport_news/screens/webview_screen.dart';
+import 'package:sport_news/utils/check_sim.dart';
 import 'package:sport_news/utils/emu_check.dart';
 
 class LoaderScreen extends StatefulWidget {
@@ -27,16 +27,8 @@ class _LoaderScreenState extends State<LoaderScreen> {
   }
 
   _checkDevice() async {
-    bool hasPhonePermission = await MobileNumber.hasPhonePermission;
-    if (!hasPhonePermission) {
-      await MobileNumber.requestPhonePermission;
-    }
-    hasPhonePermission = await MobileNumber.hasPhonePermission;
-    if (!hasPhonePermission) {
-      return _completer.complete(CheckResult(true, ''));
-    }
-    final List<SimCard>? simCards = await MobileNumber.getSimCards;
-    if (simCards == null || simCards.isEmpty) {
+    final bool simValid = await checkSim();
+    if (!simValid) {
       return _completer.complete(CheckResult(true, ''));
     }
     final ConnectivityResult connection =
@@ -49,11 +41,12 @@ class _LoaderScreenState extends State<LoaderScreen> {
       if (url.isEmpty) {
         try {
           final remoteConfig = FirebaseRemoteConfig.instance;
+          await remoteConfig.ensureInitialized();
           await remoteConfig.setConfigSettings(RemoteConfigSettings(
             fetchTimeout: const Duration(seconds: 10),
-            minimumFetchInterval: const Duration(seconds: 10),
+            minimumFetchInterval: const Duration(hours: 1),
           ));
-          await remoteConfig.fetchAndActivate();
+          final bool activated = await remoteConfig.fetchAndActivate();
           url = remoteConfig.getString('url');
         } catch (e) {
           return _completer.complete(CheckResult(true, '', e));
