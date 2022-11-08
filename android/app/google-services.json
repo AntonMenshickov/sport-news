@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "34933448275",
+    "project_id": "sport-news-90485",
+    "storage_bucket": "sport-news-90485.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:34933448275:android:0194cf070e93a52888b0a6",
+        "android_client_info": {
+          "package_name": "com.example.sport_news"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "34933448275-39p0r33dv9eso27j39rqnhiah7li7e7e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sport_news",
+            "certificate_hash": "4f76b6c86462fc2bda4b9efca2eb18382e705aea"
+          }
+        },
+        {
+          "client_id": "34933448275-i0j4ushs1fq4fl3nnshabrbphqkbvlal.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9YPG3YQNC-6Y4VkfmwrUUwcch6BmqOxw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "34933448275-i0j4ushs1fq4fl3nnshabrbphqkbvlal.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "34933448275-e5r4ijm1bsg8qboo3he096ta0no246c5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
